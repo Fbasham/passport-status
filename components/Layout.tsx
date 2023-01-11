@@ -14,6 +14,26 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <div className="flex min-h-screen flex-col">
       <Header
+        breadcrumbProps={{
+          items: [
+            {
+              link: t('breadcrumb.canada-ca.link'),
+              text: t('breadcrumb.canada-ca.text'),
+            },
+            {
+              link: t('breadcrumb.travel-and-tourism.link'),
+              text: t('breadcrumb.travel-and-tourism.text'),
+            },
+            {
+              link: t(
+                'breadcrumb.canadian-passports-and-other-travel-documents.link'
+              ),
+              text: t(
+                'breadcrumb.canadian-passports-and-other-travel-documents.text'
+              ),
+            },
+          ],
+        }}
         skipToMainText={t('header.skip-to-main')}
         gocLink={t('header.goc-link')}
       />

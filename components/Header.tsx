@@ -8,13 +8,20 @@ import { useRouter } from 'next/router'
 
 import ApplicationNameBar from './ApplicationNameBar'
 import Banner from './Banner'
+import Breadcrumb, { BreadcrumbProps } from './Breadcrumb'
+import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 
 export interface HeaderProps {
+  breadcrumbProps?: BreadcrumbProps
   gocLink: string
   skipToMainText: string
 }
 
-const Header: FC<HeaderProps> = ({ gocLink, skipToMainText }) => {
+const Header: FC<HeaderProps> = ({
+  breadcrumbProps,
+  gocLink,
+  skipToMainText,
+}) => {
   const config = getConfig()
   const { locale, asPath } = useRouter()
   const { t } = useTranslation('common')
@@ -90,8 +97,6 @@ const Header: FC<HeaderProps> = ({ gocLink, skipToMainText }) => {
             >
               {langSelectorText}
             </Link>
-            {/* Placeholder for SearchBar in case is back in ver 4??? */}
-            {/* <SearchBar /> */}
           </div>
         </div>
 
@@ -100,30 +105,12 @@ const Header: FC<HeaderProps> = ({ gocLink, skipToMainText }) => {
           href="/expectations"
         />
 
-        {/* <Menu
-          loginText={t('login')}
-          items={[
-            {
-              link: '/search',
-              text: t('service-and-benefits'),
-            },
-            {
-              link: '/',
-              text: t('tools'),
-            },
-            {
-              link: '/',
-              text: t('contact-us'),
-            },
-          ]}
-        /> */}
-
-        {/* Place Holder for the breadcrumbs
-
-        <div className="layout-container my-2">
-          <Breadcrumb items={breadcrumbItems} />
-        </div>
-        */}
+        {(breadcrumbProps?.items?.length ?? 0) > 0 && (
+          <div className="container mx-auto px-4 my-5">
+            <BreadcrumbStructuredData {...breadcrumbProps} />
+            <Breadcrumb {...breadcrumbProps} />
+          </div>
+        )}
       </header>
     </>
   )
